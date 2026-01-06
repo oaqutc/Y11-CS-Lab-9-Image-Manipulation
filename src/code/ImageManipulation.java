@@ -17,6 +17,7 @@ public class ImageManipulation {
         edgeDetection("cyberpunk2077.jpg", 20);
         reflectImage("cyberpunk2077.jpg");
         rotateImage("cyberpunk2077.jpg");
+        rotateThatImage("cyberpunk2077.jpg");
     }
 
     /**
@@ -210,4 +211,18 @@ public class ImageManipulation {
         rotatedImage.draw();
     }
 
+    public static void rotateThatImage(String pathToFile) {
+        APImage image = new APImage(pathToFile);
+        int width = image.getWidth();
+        int height = image.getHeight();
+        for (int y = 0; y < height; y += 2) {
+            for (int x = 0; x < width / 2; x++) {
+                Pixel p = image.getPixel(x, y);
+                Pixel pFlip = image.getPixel(width - 1 - x, y);
+                image.setPixel(width - 1 - x, y, p);
+                image.setPixel(x, y, pFlip);
+            }
+        }
+        image.draw();
+    }
 }
